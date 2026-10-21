@@ -20,3 +20,10 @@
 - Final change after the deployed-browser checks is documentation only. Public GitHub and Vercel URLs are included in README and SUBMISSION.
 
 - Final documentation checkpoint: 2026-10-21 13:42:47 MYT. Elapsed from the recorded start: 25 minutes 58 seconds, including setup, implementation, checks, documentation, source publication and deployment. Final documentation commit/push follows this timestamp; total delivery is approximately 26 minutes, within the 180-minute limit.
+
+## UI refinement — 21 October 2026 (additional work)
+
+- Recorded start: 14:43:48 MYT. Clean baseline/recovery commit: b6aabb61dc616f69785831b5a7ced79b806d1978. Created ui/polish-readability-feedback before editing.
+- CSS-only changes: restrained row/button feedback, result/filter hierarchy, mobile customer/account spacing and visible mobile loading placeholders. No API, query, lifecycle, component-label, test or dependency changes.
+- Baseline browser suite: 9 passed in 18.3s. Type checking, ESLint, 32 unit tests and production build passed. After-edit browser suite initially passed 9 tests in 20.4s. Additional feedback/scroll/focus/reduced-motion/touch/long-text probes passed; the final suite/deployment/time results are in UI_POLISH.md.
+- Original recorded work duration: 26m 02s. Only this refinement's measured duration is added; unreported applicant work is unknown. This section appends to the original record.

@@ -70,3 +70,7 @@ Reviewed App, Dashboard, OrderTable, Feedback and styles against the current [Ve
 ## Not verified
 
 Applicant's personal review; actual phones; Safari, Firefox or Edge execution; screen-reader user testing; production API SLA, billing or security audit. None is represented as completed.
+
+## Subsequent UI refinement — 21 October 2026
+
+The original delivery results and bundle hash above are historical. The CSS-only refinement has its own recovery point, before/after checks, production verification and time record in [UI_POLISH.md](UI_POLISH.md). Existing automated tests and the API contract are preserved; no applicant manual review is claimed.

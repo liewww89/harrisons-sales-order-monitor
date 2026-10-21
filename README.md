@@ -129,4 +129,6 @@ Time tracking and setup notes: [docs/WORK_LOG.md](docs/WORK_LOG.md).
 
 Applicant checklist, Chinese code/data-flow explanation and five implementation-specific interview questions: [docs/HANDOVER.md](docs/HANDOVER.md).
 
+The subsequent CSS-only UI refinement improves row/button feedback, filter hierarchy and mobile readability. Its separate recovery point, checks, deployment and additional time are recorded in [docs/UI_POLISH.md](docs/UI_POLISH.md); the original assessment log is preserved.
+
 ![Desktop sales order dashboard](docs/screenshots/desktop.jpg)
