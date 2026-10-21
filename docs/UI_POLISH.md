@@ -50,8 +50,21 @@ Web Interface Guidelines review: `src/styles.css` retains explicit focus outline
 
 ## Publication and time
 
-The verified feature branch will be fast-forwarded into main and pushed without a force push. Deployment targets only the existing `harrisons-sales-order-monitor` Vercel project and retains its public URL. Final production checks, source commit and elapsed time are recorded below after execution.
+The verified feature branch was fast-forwarded into main and both were pushed without a force push. The UI commit is **`90ab8078b187abc91f6f247efb27970441daf4c9`**. The original recovery point remains reachable in its history; only the subsequent report update is a documentation commit.
+
+Deployment updated only the existing `harrisons-sales-order-monitor` Vercel project, retaining **https://harrisons-sales-order-monitor.vercel.app**. Vercel reported READY on the existing basic build machine, Node 22.x and no deployment protection. No account security settings, hosting plan or paid resources were changed.
+
+Production checks actually executed:
+
+- Anonymous HTTPS: **HTTP 200**.
+- Existing complete browser suite against the public URL: **9 passed in 20.1 seconds**. This includes initial loading/rows/global statistics, **Siti + B20 + Open order**, clear filters, next/previous pagination, empty results, retries and stale-response behaviour.
+- The additional hover/press/focus/sticky-scroll/reduced-motion/phone-width/touch/loading probes also passed against the public URL with no page errors.
+- Downloaded public production CSS and JavaScript and compared both with the tested local production build: **identical SHA-256**.
+- CSS `index-Br6zoeal.css`: `1ed55e220f26cfa8923e2b1ad7b9a03c44d27b1390494dd1daedb1735ae0c69f`.
+- JavaScript `index-ULa1BEJN.js`: `39a143006b6d7005649ea2cc4ce516bf889e66e5e9d8cc2e6a81f8e24ad668f9`. These JavaScript bytes also match the original delivery, consistent with the CSS-only change.
 
 The prior recorded work was **26 minutes 2 seconds**. Cumulative time is that recorded duration plus this refinement's actual elapsed time; intervening wall-clock time and any unreported applicant work are not invented or counted as known work.
 
 Remaining limits: Chrome browser automation and touch emulation do not replace real-phone, Safari/Firefox/Edge or screen-reader testing. Existing optional filter URL persistence and order details remain deferred. No recruitment form was submitted.
+
+Timing checkpoint before final documentation sync: **2026-10-21 14:57:35 MYT**. Additional measured work: **13m 47s**; recorded cumulative work: **39m 49s**, including setup/inspection, CSS, verification, documentation and deployment. Final documentation commit/push follows this checkpoint. This is within both the approximately 30-minute refinement allowance and cumulative 180-minute assessment limit.

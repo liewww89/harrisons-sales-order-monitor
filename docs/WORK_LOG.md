@@ -27,3 +27,7 @@
 - CSS-only changes: restrained row/button feedback, result/filter hierarchy, mobile customer/account spacing and visible mobile loading placeholders. No API, query, lifecycle, component-label, test or dependency changes.
 - Baseline browser suite: 9 passed in 18.3s. Type checking, ESLint, 32 unit tests and production build passed. After-edit browser suite initially passed 9 tests in 20.4s. Additional feedback/scroll/focus/reduced-motion/touch/long-text probes passed; the final suite/deployment/time results are in UI_POLISH.md.
 - Original recorded work duration: 26m 02s. Only this refinement's measured duration is added; unreported applicant work is unknown. This section appends to the original record.
+
+- Final local CSS browser run: 9 passed in 18.4s. Production browser run: 9 passed in 20.1s; anonymous HTTPS 200; deployed CSS/JS hashes match tested build. Existing Vercel project/public URL retained. UI commit 90ab807 was fast-forwarded into main and both branches were pushed. No account security, plan, dependency, API or lifecycle changes.
+
+Timing checkpoint before final documentation sync: **2026-10-21 14:57:35 MYT**. Additional measured work: **13m 47s**; recorded cumulative work: **39m 49s**, including setup/inspection, CSS, verification, documentation and deployment. Final documentation commit/push follows this checkpoint. This is within both the approximately 30-minute refinement allowance and cumulative 180-minute assessment limit.

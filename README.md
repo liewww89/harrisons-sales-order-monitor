@@ -101,7 +101,7 @@ npm.cmd run test:e2e
 Remove-Item Env:APP_URL
 ```
 
-Actual results and their scope are recorded in [docs/VERIFICATION.md](docs/VERIFICATION.md). The final local code run passed type checking, lint, production build, **32 unit tests** and **9 browser tests**. The production-origin contract/CORS check passed and **the same 9 browser tests passed against the public Vercel deployment** in 21.9 seconds. Desktop/tablet/mobile screenshots were inspected by Codex. These are agent-executed checks, not a claim that the applicant personally reviewed the application.
+Actual results and their scope are recorded in [docs/VERIFICATION.md](docs/VERIFICATION.md) and [docs/UI_POLISH.md](docs/UI_POLISH.md). The latest UI refinement passed type checking, lint, production build, **32 unit tests**, **9 local browser tests** (18.4 seconds on the final CSS), and **the same 9 tests against the public Vercel deployment** (20.1 seconds). Browser authentication/CORS integration remains verified. Codex inspected before/after desktop, tablet and phone-width screenshots, and checked hover, press, keyboard focus, sticky scrolling, reduced motion and long text. These are agent-executed checks, not a claim that the applicant personally reviewed the application.
 
 The browser tests use the supplied API for successful integration. Two tests intercept responses to simulate list/metadata HTTP 503 errors; one forwards a real API response but delays it to check races. Unit tests use a single observed example record and mocked HTTP boundaries, isolated from production. No replacement production order service exists.
 
