@@ -1,10 +1,10 @@
 import { WarningCircleIcon } from '@phosphor-icons/react/dist/icons/WarningCircle'
 
-export function ErrorNotice({ title, message, retry }: { title: string; message: string; retry: () => void }) {
+export function ErrorNotice({ title, message, retry, retryLabel = 'Retry' }: { title: string; message: string; retry: () => void; retryLabel?: string }) {
   return <div className="error-notice" role="alert">
     <WarningCircleIcon size={20} aria-hidden="true" />
     <div><h3>{title}</h3><p>{message}</p></div>
-    <button className="button secondary" onClick={retry}>Retry</button>
+    <button className="button secondary" onClick={retry}>{retryLabel}</button>
   </div>
 }
 

@@ -21,9 +21,9 @@ try {
       get('?q=zzzz-no-match-54321'),
     ])
     const invariant = (value, message) => { if (!value) throw new Error(message) }
-    invariant(meta.readOnly && meta.dataset.rows === 1200, 'Metadata contract changed')
+    invariant(meta.readOnly && meta.dataset.primaryKey === 'SalesId' && Number.isSafeInteger(meta.dataset.rows) && meta.dataset.rows >= 0, 'Metadata contract changed')
     invariant(all.total === all.summary.total_orders, 'All-orders scope mismatch')
-    invariant(all.data.length === 25 && all.totalPages === 48, 'Pagination mismatch')
+    invariant(all.pageSize === 25 && all.data.length === Math.min(all.pageSize, all.total) && all.totalPages === Math.max(1, Math.ceil(all.total / all.pageSize)), 'Pagination mismatch')
     invariant(combined.total === combined.summary.filtered_orders, 'Filtered total mismatch')
     invariant(combined.data.every((o) => o.InventSiteId === 'B20' && o.SalesStatus === 'Open order'), 'Combined filters failed')
     invariant(combined.summary.total_order_value === all.summary.total_order_value, 'Summary scope changed')

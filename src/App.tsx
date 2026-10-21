@@ -72,6 +72,13 @@ export default function App() {
     setQuery(INITIAL_QUERY);
   }
 
+  function retryOrders() {
+    // A changing dataset can invalidate a previously valid later page. Keep
+    // its filters, but let the user recover instead of retrying that page.
+    if (query.page > 1) setQuery((current) => ({ ...current, page: 1 }));
+    else orders.retry();
+  }
+
   function changeFilter(field: "site" | "status", value: string) {
     setQuery((current) =>
       withFilters(current, { [field]: value, q: search.trim() }),
@@ -226,7 +233,8 @@ export default function App() {
                     <ErrorNotice
                       title="Orders could not be loaded"
                       message={error}
-                      retry={orders.retry}
+                      retry={retryOrders}
+                      retryLabel={query.page > 1 ? "Return to first page" : "Retry"}
                     />
                   ) : data?.data.length ? (
                     <OrderTable orders={data.data.slice(0, 4)} preview />
@@ -402,7 +410,8 @@ export default function App() {
                     <ErrorNotice
                       title="Orders could not be loaded"
                       message={error}
-                      retry={orders.retry}
+                      retry={retryOrders}
+                      retryLabel={query.page > 1 ? "Return to first page" : "Retry"}
                     />
                   ) : data && data.data.length > 0 ? (
                     <OrderTable orders={data.data} />
