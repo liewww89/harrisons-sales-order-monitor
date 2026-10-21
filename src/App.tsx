@@ -42,6 +42,13 @@ export default function App() {
     setQuery(INITIAL_QUERY)
   }
 
+  function retryOrders() {
+    // A changing dataset can invalidate a previously valid later page. Keep
+    // its filters, but let the user recover instead of retrying that page.
+    if (query.page > 1) setQuery((current) => ({ ...current, page: 1 }))
+    else orders.retry()
+  }
+
   function changeFilter(field: 'site' | 'status', value: string) {
     setQuery((current) => withFilters(current, { [field]: value, q: search.trim() }))
   }
@@ -111,7 +118,7 @@ export default function App() {
 
         <div className="order-results" aria-busy={loading}>
           {loading ? <LoadingRows searching={searchPending} />
-            : error ? <ErrorNotice title="Orders could not be loaded" message={error} retry={orders.retry} />
+            : error ? <ErrorNotice title="Orders could not be loaded" message={error} retry={retryOrders} retryLabel={query.page > 1 ? 'Return to first page' : 'Retry'} />
               : data && data.data.length > 0 ? <OrderTable orders={data.data} />
                 : data ? <div className="empty-state" role="status"><MagnifyingGlassIcon size={28} aria-hidden="true" /><h3>No matching orders</h3><p>Try another sales ID or customer, or clear the filters to see all orders.</p><button className="button primary" onClick={clearFilters}>Clear filters</button></div> : null}
         </div>
