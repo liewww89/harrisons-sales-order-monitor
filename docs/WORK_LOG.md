@@ -9,4 +9,10 @@
 - Terminal API checks: metadata, list, status filter, branch filter, combined filters, empty result. `summary` is global except `filtered_orders`; amount units and currency are unspecified.
 - Initial npm install failed inside npm's peer resolver. Resolved by selecting compatible ESLint 9 and the current Vitest release, without changing system software.
 
-Completion time and final verification results will be recorded after delivery checks.
+- Browser contract check passed from the local app origin before full UI implementation.
+- Local final code checks passed: type checking, lint, production build, 32 unit tests and 9 browser tests (22.8 seconds after review fixes).
+- Used supplementary Frontend Design and UI/UX guidance for typography, control labels, focus and responsive behavior; rejected the irrelevant marketing-layout suggestion. A single screen needs no artificial navigation sidebar.
+- GitHub: created a new public repository with the requested name and pushed the code; anonymous page/raw access passed. Commits use the account's public noreply identity.
+- Vercel: user completed device login; existing plan verified as Hobby. Created only the new assessment project. First build succeeded; removed its inherited SSO protection and pinned Node 22.x. Anonymous production HTTPS passed.
+
+Completion time and deployed-browser verification will be recorded after delivery checks.

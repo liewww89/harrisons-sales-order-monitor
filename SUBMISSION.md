@@ -32,11 +32,15 @@ Public deployment verification results will be updated after deployment. Detaile
 
 ## Question 3 — Source code: public Git repository URL
 
-Pending publication and unauthenticated-access verification.
+https://github.com/liewww89/harrisons-sales-order-monitor
+
+Verified public: the repository page and raw application source are accessible without login.
 
 ## Question 4 — Working web app URL
 
-Pending deployment and public HTTPS verification.
+https://harrisons-sales-order-monitor.vercel.app
+
+Verified anonymous HTTPS response: HTTP 200, without redirecting to login. Final production-browser results are recorded in docs/VERIFICATION.md.
 
 ## Question 5 — Known limitations
 

@@ -20,7 +20,7 @@ Date: 21 October 2026 (MYT, UTC+08:00). All checks below were executed by Codex 
 | Responsive browser assertions | No page horizontal overflow at 1440, 1024, 768, 390 and 375px. Required row fields visible at every width. |
 | Keyboard/reduced motion | Skip link and main focus tested; labelled controls and reduced-motion CSS present; browser set to reduced motion. |
 
-The final test run after review fixes will be recorded below. “Passed” describes the actual checked conditions, not certification for every device, browser or assistive technology.
+After review fixes, the local build, lint and type checking passed again, all 32 unit tests passed, and all 9 browser tests passed again in 22.8 seconds. “Passed” describes the actual checked conditions, not certification for every device, browser or assistive technology.
 
 ## API observations
 
@@ -53,9 +53,10 @@ Reviewed App, Dashboard, OrderTable, Feedback and styles against the current [Ve
 
 ## Public delivery
 
-- GitHub publication and anonymous access: pending.
-- Vercel production deployment, anonymous HTTPS and production-origin CORS: pending.
-- Browser interactions against deployment: pending.
+- GitHub: https://github.com/liewww89/harrisons-sales-order-monitor — created and pushed; repository page and raw App.tsx both returned anonymous HTTP 200. GitHub API confirms private=false.
+- Vercel: https://harrisons-sales-order-monitor.vercel.app — new project deployed on Hobby/basic resources. Anonymous HTTPS returned HTTP 200 at the production host, without login or a protection bypass.
+- Removed inherited SSO protection only from this newly created assessment project; existing account/team defaults and unrelated projects were preserved. Pinned the project and package to Node 22.x for reproducibility.
+- Final Node-22 deployment, production-origin CORS and browser interactions: in progress.
 
 ## Not verified
 

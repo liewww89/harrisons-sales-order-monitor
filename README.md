@@ -2,13 +2,13 @@
 
 A responsive sales order dashboard for the Harrisons Sabah Sdn Bhd IT Executive assessment. **All customers and orders are fictional assessment data.** The app monitors orders across branches; it sends only GET requests to the supplied read-only API.
 
-- Public source: pending publication verification.
-- Working app: pending deployment verification.
+- Public source: [github.com/liewww89/harrisons-sales-order-monitor](https://github.com/liewww89/harrisons-sales-order-monitor) (anonymous page and raw-source access verified).
+- Working app: [harrisons-sales-order-monitor.vercel.app](https://harrisons-sales-order-monitor.vercel.app) (anonymous HTTPS verified; final production-browser checks recorded below).
 - Submission answers: [SUBMISSION.md](SUBMISSION.md).
 
 ## Run locally
 
-Use Node.js 22.13 or later (tested with 22.23.2) and npm. No database, backend server, environment variables, or account login is needed to run the app.
+Use Node.js 22.x, version 22.13 or later (tested with 22.23.2), and npm. No database, backend server, environment variables, or account login is needed to run the app.
 
 ```powershell
 npm.cmd ci
@@ -109,11 +109,11 @@ The browser tests use the supplied API for successful integration. Two tests int
 
 Vercel is configured by `vercel.json`: Vite framework, `npm run build`, output `dist`. No runtime environment variables or paid resources are needed.
 
-1. Import the public GitHub repository into a free Vercel account, or run `npx.cmd --yes vercel@65.0.0 login` and `npx.cmd --yes vercel@65.0.0 --prod` in this directory.
+1. Import the public GitHub repository into a free Vercel account, or run `npx.cmd --yes vercel@65.0.0 login`, then `npx.cmd --yes vercel@65.0.0 deploy --prod --project harrisons-sales-order-monitor --create-if-missing --yes` in this directory. Use `--scope YOUR-SCOPE` if your account has multiple scopes.
 2. Create a new project named `harrisons-sales-order-monitor`; do not replace unrelated projects. Select Node 22.x if a runtime selection is needed.
 3. Ensure the production domain is publicly accessible without deployment protection. Verify using a fresh browser session and the commands above.
 
-`.vercel/`, dependencies, generated output, local skill installations and local test artifacts are excluded from Git. Publishing/deployment status and real URLs will be updated after verification.
+`.vercel/`, dependencies, generated output, local skill installations and local test artifacts are excluded from Git. This delivery used the Vercel CLI with a new project on the existing Hobby plan, a basic build machine, Node 22.x and project-specific deployment protection disabled. No upgrade or paid add-on was purchased. Subsequent source pushes require a CLI redeployment unless the owner separately connects Git integration.
 
 ## AI use and limitations
 
