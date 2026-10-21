@@ -361,7 +361,7 @@ test("card, row, view, indicator and donut motion execute and survive interrupti
   await page.locator(".metric").first().hover();
   await expect(page.locator(".metric").first()).toHaveCSS(
     "transform",
-    "matrix(1, 0, 0, 1, 0, -4)",
+    "matrix(1, 0, 0, 1, 0, -6)",
   );
   await nav(page)
     .getByRole("link", { name: "Sales orders", exact: true })

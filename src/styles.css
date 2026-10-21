@@ -184,7 +184,7 @@ select {
   height: 46px;
   border-radius: 12px;
   background: #dce2fc;
-  transition: transform 220ms var(--ease);
+  transition: transform 300ms var(--ease);
 }
 .workspace-nav[data-view="orders"] .nav-indicator {
   transform: translateY(52px);
@@ -301,8 +301,19 @@ h1:focus {
   position: relative;
   overflow: hidden;
 }
-.refresh:not(:disabled) {
-  animation: ready-highlight 450ms ease-out;
+.refresh::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 25%,
+    rgb(255 255 255 / 35%) 50%,
+    transparent 75%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-140%) skewX(-18deg);
 }
 .secondary {
   background: white;
@@ -326,7 +337,7 @@ h1:focus {
   animation: request-spin 850ms linear infinite;
 }
 .view-content {
-  animation: view-enter 200ms var(--ease);
+  animation: view-enter 300ms var(--ease);
 }
 .card {
   background: white;
@@ -354,7 +365,9 @@ h1:focus {
   transition:
     transform var(--motion) var(--ease),
     box-shadow var(--motion) ease;
-  animation: card-enter 300ms var(--ease) backwards;
+}
+.metric-ready {
+  animation: card-enter 560ms cubic-bezier(0.2, 0.8, 0.25, 1) backwards;
 }
 .metric dt {
   font-weight: 600;
@@ -364,6 +377,7 @@ h1:focus {
   line-height: 1.4;
 }
 .metric dd {
+  min-height: 35px;
   margin-block: 12px;
   font-size: 31px;
   font-weight: 700;
@@ -444,8 +458,8 @@ h1:focus {
 .donut-segment {
   cursor: pointer;
   transition:
-    opacity 180ms ease,
-    stroke-width 180ms ease;
+    opacity 220ms ease,
+    stroke-width 220ms ease;
 }
 .donut-segment[data-muted="true"] {
   opacity: 0.35;
@@ -502,6 +516,12 @@ h1:focus {
 }
 .legend-item[data-highlighted="true"] {
   background: #eef0fc;
+}
+.legend-dot {
+  transition: transform 220ms var(--ease);
+}
+.legend-item[data-highlighted="true"] .legend-dot {
+  transform: scale(1.18);
 }
 .legend-dot {
   width: 12px;
@@ -627,10 +647,9 @@ h1:focus {
 }
 .filters {
   display: grid;
-  grid-template-columns: minmax(190px, 1fr) minmax(130px, 0.5fr) minmax(
-      160px,
-      0.6fr
-    ) auto;
+  grid-template-columns:
+    minmax(190px, 1fr) minmax(130px, 0.5fr) minmax(160px, 0.6fr)
+    auto;
   gap: 16px;
   align-items: end;
   padding: 23px 22px 17px;
@@ -755,7 +774,7 @@ tbody td {
 tbody tr {
   background: white;
   transition: background-color 180ms ease;
-  animation: row-enter 180ms var(--ease) backwards;
+  animation: row-enter 240ms var(--ease) backwards;
   cursor: default;
 }
 tbody tr:last-child > * {
@@ -946,15 +965,18 @@ tbody tr:last-child > * {
     transform: translateY(-1px) rotate(-5deg);
   }
   .metric:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 22px rgb(55 70 150 / 10%);
+    transform: translateY(-6px);
+    box-shadow: 0 14px 28px rgb(55 70 150 / 14%);
   }
   .metric:hover .metric-icon {
-    transform: rotate(-6deg) scale(1.07);
+    transform: rotate(-8deg) scale(1.08);
   }
   .primary:hover:enabled {
     background: #3b4ed9;
     transform: translateY(-2px);
+  }
+  .refresh:hover:enabled::after {
+    animation: refresh-sheen 650ms var(--ease);
   }
   .secondary:hover:enabled {
     background: #f1f3ff;
@@ -969,7 +991,7 @@ tbody tr:last-child > * {
   }
   .explore-link:hover > svg,
   .text-link:hover svg {
-    transform: translateX(3px);
+    transform: translateX(6px);
   }
   .legend-item:hover {
     background: #eef0fc;
@@ -984,8 +1006,8 @@ tbody tr:last-child > * {
 }
 @keyframes card-enter {
   from {
-    opacity: 0.4;
-    transform: translateY(7px);
+    opacity: 0.6;
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -995,7 +1017,7 @@ tbody tr:last-child > * {
 @keyframes view-enter {
   from {
     opacity: 0.6;
-    transform: translateY(4px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -1017,12 +1039,17 @@ tbody tr:last-child > * {
     transform: rotate(360deg);
   }
 }
-@keyframes ready-highlight {
+@keyframes refresh-sheen {
   from {
-    box-shadow: 0 0 0 4px #4a5df026;
+    opacity: 0;
+    transform: translateX(-140%) skewX(-18deg);
+  }
+  15% {
+    opacity: 1;
   }
   to {
-    box-shadow: 0 0 0 0 transparent;
+    opacity: 0;
+    transform: translateX(140%) skewX(-18deg);
   }
 }
 @media (min-width: 1800px) {

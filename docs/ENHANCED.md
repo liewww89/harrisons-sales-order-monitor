@@ -1,5 +1,7 @@
 # Enhanced alternative UI — delivery record
 
+This is the historical initial delivery record. See [MOTION_REFINEMENT.md](MOTION_REFINEMENT.md) for the subsequent focused animation refinement, current timings, checks and motion recording.
+
 Classic remains the **PRIMARY assessment submission**. Enhanced is an **ALTERNATIVE UI** in the same public repository. This record is written by Codex; it does not claim applicant manual review. The recruitment form has not been submitted.
 
 ## Isolation and recovery

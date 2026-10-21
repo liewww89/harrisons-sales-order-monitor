@@ -67,9 +67,9 @@ export function Dashboard({ summary, loading }: Props) {
       <dl className="metrics">
         {metrics.map((metric, index) => (
           <div
-            className={`card metric ${metric.className}`}
+            className={`card metric ${metric.className}${summary && !loading ? " metric-ready" : ""}`}
             key={metric.label}
-            style={{ animationDelay: `${index * 30}ms` }}
+            style={{ animationDelay: `${Math.min(index * 45, 180)}ms` }}
           >
             <span className="metric-icon">
               <metric.Icon size={21} aria-hidden="true" />

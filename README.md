@@ -2,6 +2,8 @@
 
 **Classic remains the PRIMARY assessment submission.** This branch contains **Enhanced, an ALTERNATIVE UI**, based on the supplied HTML design reference. All customers and orders are fictional assessment data; both versions use only the supplied read-only company API.
 
+Latest focused motion refinement: [cause, changes, verification and timing](docs/MOTION_REFINEMENT.md). Cards now enter after real data arrives, with a 560ms staggered reveal; the donut draws over 900ms, view/navigation transitions take 300ms, and fine-pointer hover/press feedback follows the reference. Classic remains unchanged.
+
 | Version | Submission role | Public app | Source | Screenshot | Design / motion |
 | --- | --- | --- | --- | --- | --- |
 | Classic | **PRIMARY** | [Open Classic](https://harrisons-sales-order-monitor.vercel.app) | [`main`, pinned application baseline `3bc82a5`](https://github.com/liewww89/harrisons-sales-order-monitor/tree/3bc82a511901f77638e3ee19af399c0875afb84d) | [Desktop](docs/screenshots/classic-desktop.png) | Single working dashboard; quiet table/button feedback. |

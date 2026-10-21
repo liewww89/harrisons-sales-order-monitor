@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from "react";
+import { useLayoutEffect, useId, useRef, useState } from "react";
 import type { OrderSummary } from "../types";
 import { dashboardCounts } from "../query";
 import { formatCount } from "../format";
@@ -45,15 +45,25 @@ export function Distribution({ summary }: { summary: OrderSummary }) {
   const reveal = useRef<SVGCircleElement>(null);
   const reducedMotion = useReducedMotion();
 
-  useEffect(() => {
-    if (reducedMotion || !reveal.current) return;
+  useLayoutEffect(() => {
+    if (
+      reducedMotion ||
+      !reveal.current ||
+      typeof reveal.current.animate !== "function"
+    )
+      return;
     // The underlying SVG is always in its final state. Cancelling on unmount or
     // a live preference change therefore cannot leave an invisible chart.
-    const animation = reveal.current.animate(
-      [{ strokeDashoffset: "100" }, { strokeDashoffset: "0" }],
-      { duration: 550, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
-    );
-    return () => animation.cancel();
+    try {
+      const animation = reveal.current.animate(
+        [{ strokeDashoffset: "100" }, { strokeDashoffset: "0" }],
+        { duration: 900, easing: "cubic-bezier(0.25, 0.7, 0.3, 1)" },
+      );
+      return () => animation.cancel();
+    } catch {
+      // Animation support/failure must never hide the final chart or crash UI.
+      return;
+    }
   }, [
     reducedMotion,
     summary.total_orders,
