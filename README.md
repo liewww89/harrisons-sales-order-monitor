@@ -4,10 +4,10 @@
 
 | Version | Submission role | Public application | Source | Screenshots | Design / motion |
 | --- | --- | --- | --- | --- | --- |
-| Classic | **PRIMARY** | [Open Classic](https://harrisons-sales-order-monitor.vercel.app) | [`main`, pinned application `3bc82a5`](https://github.com/liewww89/harrisons-sales-order-monitor/tree/3bc82a511901f77638e3ee19af399c0875afb84d) | [Desktop](docs/screenshots/classic-desktop.png) | Single dashboard; restrained row/button feedback. |
-| Enhanced | **ALTERNATIVE UI** | [Open Enhanced](https://harrisons-sales-order-monitor-enhan.vercel.app) | [`design/enhanced-ui`, application `0d97fd6`](https://github.com/liewww89/harrisons-sales-order-monitor/tree/0d97fd65cc7ecd9c5ad524973fcd371858a09724) | [Overview](docs/screenshots/enhanced-overview-desktop.png), [Orders](docs/screenshots/enhanced-orders-desktop.png), [Mobile](docs/screenshots/enhanced-orders-mobile.png) | Supplied lavender design, separate Overview/orders views, mobile navigation, interactive donut and bounded motion. |
+| Classic | **PRIMARY** | [Open Classic](https://harrisons-sales-order-monitor.vercel.app) | [`main`, application `e5126b3`](https://github.com/liewww89/harrisons-sales-order-monitor/tree/e5126b3b0c085433a7d551d668c9a86666109012) | [Desktop](docs/screenshots/classic-desktop.png) | Single dashboard; restrained row/button feedback. |
+| Enhanced | **ALTERNATIVE UI** | [Open Enhanced](https://harrisons-sales-order-monitor-enhan.vercel.app) | [`design/enhanced-ui`, application `b2b4ad5`](https://github.com/liewww89/harrisons-sales-order-monitor/tree/b2b4ad5d58cd01d710f60d8e6cc5363944339c50) | [Overview](docs/screenshots/enhanced-overview-desktop.png), [Orders](docs/screenshots/enhanced-orders-desktop.png), [Mobile](docs/screenshots/enhanced-orders-mobile.png) | Supplied lavender design, separate Overview/orders views, mobile navigation, interactive donut and bounded motion. |
 
-Enhanced passed type checking, lint, build, 32 unit tests, 19 local browser tests and the same 19 production-browser tests. Classic passed all 9 original production tests again; its public JS/CSS hashes are unchanged. [Enhanced delivery record, time log and optional English form note](docs/ENHANCED.md). Earlier verification/timings below describe Classic. Codex performed these checks; applicant personal review is not implied. No recruitment form was submitted.
+Latest [final requirements audit](docs/FINAL_AUDIT.md): both versions passed type checking, lint, build and 32 unit tests each. Classic passed 22 browser tests locally and 22 in production; Enhanced passed 35 locally and 35 in production. A small later-page error fix lets users return to page 1 if the dataset shrinks. Normal production paths had no console/page/request/asset errors, and public JS/CSS matched each tested build. No Enhanced application code is merged into main. Earlier verification/timings below are historical records. Codex performed these checks; applicant personal review is not implied. No recruitment form was submitted.
 
 <details>
 <summary>API-connected screenshots: Classic and Enhanced</summary>
@@ -94,7 +94,7 @@ Base: `https://hiring.harrisons.my/api/mock/sales-orders`.
 
 ### Overview scope and status groupings
 
-Verified against unfiltered, branch, status, combined and empty results: summary amounts and status counts describe **all 1,200 orders**, not the current page or filtered selection. Only `summary.filtered_orders` changes with filters and equals list `total`. The overview is labelled “All orders · unaffected by filters.” No extra dataset aggregation or full-dataset download is required.
+Verified against unfiltered, branch, status, combined and empty results: summary amounts and status counts are **dataset-wide** (1,200 orders at this audit), not the current page or filtered selection. Only `summary.filtered_orders` changes with filters and equals list `total`. The overview is labelled “All orders · unaffected by filters.” No extra dataset aggregation or full-dataset download is required.
 
 | Metric | Mapping | Observed value |
 | --- | --- | --- |
@@ -126,7 +126,7 @@ npm.cmd run test:e2e
 Remove-Item Env:APP_URL
 ```
 
-Actual results and their scope are recorded in [docs/VERIFICATION.md](docs/VERIFICATION.md) and [docs/UI_POLISH.md](docs/UI_POLISH.md). The latest UI refinement passed type checking, lint, production build, **32 unit tests**, **9 local browser tests** (18.4 seconds on the final CSS), and **the same 9 tests against the public Vercel deployment** (20.1 seconds). Browser authentication/CORS integration remains verified. Codex inspected before/after desktop, tablet and phone-width screenshots, and checked hover, press, keyboard focus, sticky scrolling, reduced motion and long text. These are agent-executed checks, not a claim that the applicant personally reviewed the application.
+Actual results and their scope are recorded in [docs/VERIFICATION.md](docs/VERIFICATION.md) and [docs/UI_POLISH.md](docs/UI_POLISH.md). The earlier UI refinement passed type checking, lint, production build, **32 unit tests**, **9 local browser tests** (18.4 seconds on the final CSS), and **the same 9 tests against the public Vercel deployment** (20.1 seconds). Browser authentication/CORS integration remains verified. Codex inspected before/after desktop, tablet and phone-width screenshots, and checked hover, press, keyboard focus, sticky scrolling, reduced motion and long text. These are agent-executed checks, not a claim that the applicant personally reviewed the application.
 
 The browser tests use the supplied API for successful integration. Two tests intercept responses to simulate list/metadata HTTP 503 errors; one forwards a real API response but delays it to check races. Unit tests use a single observed example record and mocked HTTP boundaries, isolated from production. No replacement production order service exists.
 

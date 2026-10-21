@@ -85,4 +85,44 @@ Read `SUBMISSION.md` for the five English form answers, `docs/HANDOVER.md` for t
 
 Not tested: physical phones, Safari/Firefox/Edge execution, screen-reader user testing, API SLA or independent security/billing certification. Chrome viewport/touch simulation does not replace those. No zero-bug guarantee is made.
 
-Prior **78m27s** is a historical reported agent-work total. This audit is measured separately from 16:50:16 MYT; unknown applicant manual time is not invented.
+## Final production results and verdict
+
+**Classic is ready as the primary technical submission; Enhanced is ready as the optional alternative within the tested scope.** Applicant personal review of form answers remains outstanding. No confirmed application defect remains unresolved in the executed scenarios; this is not a guarantee about untested browsers or future API changes.
+
+| Version | Tested/deployed application commit | Deployment | Final production browser run |
+| --- | --- | --- | --- |
+| Classic main | `e5126b3b0c085433a7d551d668c9a86666109012` | `dpl_8Z9Ct8yPcWQ7Gu88NuSAMPMH6gsp` | **22 passed, 48.8s** |
+| Enhanced | `b2b4ad5d58cd01d710f60d8e6cc5363944339c50` | `dpl_8HUAadNZKBRP5cDPBvWiY1BhRhhx` | **35 passed, about 1.3m** |
+
+Each deployment reached READY in its own existing project, Node 22.x, basic plan-default build machine, unchanged public URL and no deployment protection. Each command checked exact project identity first. Both projects lack Git integration, so publication of later documentation commits does not redeploy. No account-security setting or paid service was changed.
+
+Both anonymous URLs returned HTTP 200. `scripts/audit-public.mjs` ran with no login, compared the displayed five figures and representative ID/customer/site/status/amount against fresh authenticated browser responses, performed a real Refresh, and captured both required layouts at 1440/768/390/375px (Enhanced both views). No page overflow was observed. Successful normal-path probes had **0 page errors/unhandled rejections, 0 console errors, 0 failed requests and 0 HTTP>=400 responses**. Deliberately intercepted failure tests generate expected failure messages/requests and are reported separately, not hidden as normal-path success. Fresh CORS/authentication/contract checks passed from **both production origins**.
+
+An additional 375px production probe for each version held a test-only request to inspect visible loading, then returned a simulated HTTP 500 to inspect the error heading and Retry button. Both states had no horizontal page overflow; removing interception and pressing Retry restored real API rows. Current loading/error screenshots are in Enhanced worktree `artifacts/final-audit/*-loading-375.png` and `*-error-375.png`. These checks are browser simulation, not physical-phone tests.
+
+All public entry assets match the final tested local build byte-for-byte:
+
+| Version / asset | SHA-256 |
+| --- | --- |
+| Classic `index-CXGIETWH.js` | `84e892316c9b010d6fd54a117e0f35c1bef98ce745406a99dcd6d1644f2658be` |
+| Classic `index-Br6zoeal.css` | `1ed55e220f26cfa8923e2b1ad7b9a03c44d27b1390494dd1daedb1735ae0c69f` |
+| Enhanced `index-wCxNGQHI.js` | `046b70d3f00b823caf5bd57dac092da46a51ebe36d549b3c8e30cfa08093aa6c` |
+| Enhanced `index-SEFgrFnm.css` | `da892f9d7face2d0ad05497e7e08916826adcd60e467fc0cf66098233345d905` |
+
+Unchanged CSS hashes substantiate that the approved designs/motion were not restyled. Only the small later-page error recovery changes production application behavior. Final source/publication commits after these application commits update documents/screenshots only.
+
+GitHub's anonymous repository API returned `private:false`, default branch main. Both branch READMEs and all five labelled screenshot links on each branch returned HTTP 200. Screenshots label the correct Classic/Enhanced designs; current production screenshots/proof JSON are retained in each worktree's ignored `artifacts/final-audit/`, with published screenshot copies under `docs/screenshots/`. Codex inspected current desktop and mobile renders. Main and Enhanced README run commands match package scripts; latest tests/results and submission answers are updated, with historical records distinguished.
+
+## Recovery
+
+The recorded recovery commits remain reachable. To inspect/rebuild a prior version without disturbing current work, create a new worktree at the corresponding recovery SHA, install its unchanged lockfile and run its checks. Do not reset/clean/force-push. If a rollback deployment is needed, use the separately verified project for that version; never deploy an Enhanced checkout to Classic. Original Classic directory remains clean on its original UI branch; current main lives in the existing `HarrisonsSalesMonitor-Docs` worktree.
+
+## Audit timing
+
+Prior **78m27s** is a historical reported agent-work total. This audit is measured separately from 16:50:16 MYT; unknown applicant manual time is not invented. The final checkpoint is appended after documentation preparation.
+
+### Closing measured checkpoint
+
+- **2026-10-21 17:11:17 MYT**: audit duration **21m 1s**, measured from the first verified clock. This includes inspection, reproductions, small fixes, local/production checks, separate deployments, screenshot review and documentation.
+- Historical reported agent-work sum plus this audit: **99m 28s**. The prior 78m27s is reported history, not independently verified applicant manual time; no unknown personal work is inferred.
+- Final documentation/screenshot commits, pushes and anonymous link checks follow this checkpoint; no further application change/deployment is needed. Within the cumulative 180-minute assessment ceiling using the reported history.

@@ -1,5 +1,7 @@
 # Verification record
 
+Latest audit and current test/build/deployment evidence: [FINAL_AUDIT.md](FINAL_AUDIT.md). The earlier results below remain historical.
+
 Date: 21 October 2026 (MYT, UTC+08:00). All checks below were executed by Codex unless explicitly marked pending. No applicant manual review is claimed.
 
 ## Executed local checks

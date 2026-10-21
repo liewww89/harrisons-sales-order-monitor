@@ -1,6 +1,6 @@
 # Assessment submission answers
 
-Review these answers and the application before pasting them into the recruitment form. The form has not been submitted.
+These answers describe Classic, the PRIMARY submission. Review them and the application before pasting into the recruitment form. Current verification is in docs/FINAL_AUDIT.md; the form has not been submitted.
 
 ## Question 1 — Architecture and API integration
 
@@ -12,7 +12,7 @@ I inspected actual metadata and list responses before building the UI and verifi
 
 Search has a 300ms debounce, and query/filter changes reset to page 1. AbortController cancels superseded requests, an effect-ownership guard prevents late updates, and displayed snapshots must match the active request path and retry generation. Rows, result counts and overview statistics are hidden while a changed query is pending, so old results are not presented under new controls.
 
-The API summary describes all 1,200 fictional orders except filtered_orders, which tracks the current filtered total. The overview is explicitly labelled as global. Open order maps to open/pending; Invoiced plus Delivered maps to completed; Cancelled maps to cancelled. Unexpected statuses retain their original text and are flagged as unmapped; residual global counts are shown as unclassified. The observed totals are 1,200 overall, 420 open, 660 completed and 120 cancelled, with a total order value of 998,244.30. The API does not specify currency or monetary scale, so amounts remain in their original decimal units without an assumed currency symbol or cents conversion.
+The API summary is dataset-wide (1,200 fictional orders observed at the audit), except filtered_orders, which tracks the current filtered total. The overview is explicitly labelled as global. Open order maps to open/pending; Invoiced plus Delivered maps to completed; Cancelled maps to cancelled. Unexpected statuses retain their original text and are flagged as unmapped; residual global counts are shown as unclassified. The observed totals are 1,200 overall, 420 open, 660 completed and 120 cancelled, with a total order value of 998,244.30. The API does not specify currency or monetary scale, so amounts remain in their original decimal units without an assumed currency symbol or cents conversion.
 
 The table displays SalesId, SalesName/CustAccount, InventSiteId, CreatedDateTime1, SalesStatus and HAR_TotalSOAmount. Dates are formatted in Malaysia time using Intl; amounts are right aligned with tabular digits and two decimals. Mobile layouts preserve the same fields. Controls have labels, visible keyboard focus, semantic elements, loading/empty/error states and reduced-motion support. The interface explicitly identifies the data as fictional.
 
@@ -24,11 +24,11 @@ Codex explicitly installed and read the requested React Best Practices, Web Desi
 
 Verification used actual metadata and API responses, including global versus filtered summary scope, combined filters, eight branch codes and four statuses. Chrome authenticated fetches from the application origin confirmed CORS with normal browser security. The API key is a public fixture credential visible in the frontend, not a secret protected by environment variables.
 
-The local checks passed: TypeScript type checking, ESLint, production build, 32 Vitest unit tests and 9 Playwright browser tests. Unit checks cover URL encoding, filter page reset, status grouping including unknown values, summary mapping, runtime validation, GET/header behaviour, HTTP/auth/network/JSON errors, timeout and cancellation. Browser checks compare displayed rows and dashboard values with live API responses, exercise search and independent/combined filters, pagination and boundaries, page resets, empty results/clear filters, retry, metadata failure, and delayed-response races. Keyboard access and 1440/1024/768/390/375px layouts were checked; Codex viewed desktop, tablet and mobile screenshots.
+The local checks passed: TypeScript type checking, ESLint, production build, 32 Vitest unit tests and 22 Playwright browser tests. Unit checks cover URL encoding, filter page reset, status grouping including unknown values, summary mapping, runtime validation, GET/header behaviour, HTTP/auth/network/JSON errors, timeout and cancellation. Browser checks compare displayed rows and dashboard values with live API responses, exercise search and independent/combined filters, pagination and boundaries, page resets, empty results/clear filters, retry, metadata failure, and delayed-response races. Keyboard access and 1440/1024/768/390/375px layouts were checked; Codex viewed desktop, tablet and mobile screenshots.
 
-Successful integration tests use the supplied API. HTTP 503 failures are deliberately simulated by request interception, and the race test delays a real forwarded response. Unit mocks and one observed sample record are test-only; they are not a production fallback. The delayed-response test was strengthened to wait for the older response to settle before checking final state. A JSON-error handler was refined to preserve timeout/cancellation errors. No system software was upgraded.
+Successful integration tests use the supplied API. HTTP 401/403/500/503, network/timeout and invalid responses are deliberately simulated by browser interception, and the race test delays a real forwarded response. Test-only changed datasets verify growth to 1,500 orders / 60 pages, zero orders, unknown statuses and recovery when a later page becomes invalid after a shrink. No code edit is needed for a valid data-only update. Unit mocks and one observed sample record are test-only; they are not a production fallback. The delayed-response test was strengthened to wait for the older response to settle before checking final state. A JSON-error handler was refined to preserve timeout/cancellation errors. No system software was upgraded.
 
-The public GitHub page and raw source were verified without login. The Vercel app returned anonymous HTTPS 200 without deployment protection. The contract/authentication/CORS check passed from the production origin, and the same 9 browser tests passed against the deployed app in 21.9 seconds. Detailed executed checks, actual outcomes and remaining verification limits are recorded in docs/VERIFICATION.md. Automated browser checks and agent screenshot inspection do not replace my final review, real-device testing or assistive-technology testing. I have not asked Codex to submit the recruitment form.
+The public GitHub page and raw source were verified without login. The Vercel app returned anonymous HTTPS 200 without deployment protection. The contract/authentication/CORS check passed from the production origin, and all 22 current browser tests passed against the deployed app in 48.8 seconds. Current commands, outcomes, live-versus-simulated cases and remaining limits are recorded in docs/FINAL_AUDIT.md; earlier records remain in docs/VERIFICATION.md. Automated browser checks and agent screenshot inspection do not replace my final review, real-device testing or assistive-technology testing. I have not asked Codex to submit the recruitment form.
 
 ## Question 3 — Source code: public Git repository URL
 
@@ -40,7 +40,7 @@ Verified public: the repository page and raw application source are accessible w
 
 https://harrisons-sales-order-monitor.vercel.app
 
-Verified anonymous HTTPS response: HTTP 200 without login; production-origin API/CORS check and all 9 deployed-browser tests passed. Details are in docs/VERIFICATION.md.
+Verified anonymous HTTPS response: HTTP 200 without login; production-origin API/CORS check and all 22 current deployed-browser tests passed. Details are in docs/FINAL_AUDIT.md.
 
 ## Question 5 — Known limitations
 
