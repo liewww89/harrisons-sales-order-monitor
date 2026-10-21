@@ -2,12 +2,14 @@
 
 **Classic remains the PRIMARY assessment submission.** This branch contains **Enhanced, an ALTERNATIVE UI**, based on the supplied HTML design reference. All customers and orders are fictional assessment data; both versions use only the supplied read-only company API.
 
+Latest [final requirements audit](docs/FINAL_AUDIT.md): Classic passed 22 local/production browser tests and Enhanced passed 35 local/production browser tests, with 32 unit tests each plus type checking, lint and builds. Both public apps match their tested assets. A minimal later-page error recovery handles dataset shrink; the approved design/motion is unchanged. All figures and pagination remain API-derived, including a tested data-only growth to 1,500 orders / 60 pages.
+
 Latest focused motion refinement: [cause, changes, verification and timing](docs/MOTION_REFINEMENT.md). Cards now enter after real data arrives, with a 560ms staggered reveal; the donut draws over 900ms, view/navigation transitions take 300ms, and fine-pointer hover/press feedback follows the reference. **32 unit tests and all 22 local/production browser tests passed.** [Watch the natural production motion recording](docs/motion/enhanced-motion.webm), or inspect [timed frame evidence](docs/motion/natural-motion-proof.json). Classic remains unchanged.
 
 | Version | Submission role | Public app | Source | Screenshot | Design / motion |
 | --- | --- | --- | --- | --- | --- |
-| Classic | **PRIMARY** | [Open Classic](https://harrisons-sales-order-monitor.vercel.app) | [`main`, pinned application baseline `3bc82a5`](https://github.com/liewww89/harrisons-sales-order-monitor/tree/3bc82a511901f77638e3ee19af399c0875afb84d) | [Desktop](docs/screenshots/classic-desktop.png) | Single working dashboard; quiet table/button feedback. |
-| Enhanced | **ALTERNATIVE UI** | [Open Enhanced](https://harrisons-sales-order-monitor-enhan.vercel.app) | [`design/enhanced-ui`, application `4b6fcd5`](https://github.com/liewww89/harrisons-sales-order-monitor/tree/4b6fcd54d73f7f3442d33caa4eae0e39afa436cc) | [Overview](docs/screenshots/enhanced-overview-desktop.png), [Orders](docs/screenshots/enhanced-orders-desktop.png), [Mobile](docs/screenshots/enhanced-orders-mobile.png) | Lavender workspace, sidebar/mobile navigation, five statistic cards, interactive donut, order preview, bounded reveals and real-request refresh motion. |
+| Classic | **PRIMARY** | [Open Classic](https://harrisons-sales-order-monitor.vercel.app) | [`main`, application `e5126b3`](https://github.com/liewww89/harrisons-sales-order-monitor/tree/e5126b3b0c085433a7d551d668c9a86666109012) | [Desktop](docs/screenshots/classic-desktop.png) | Single working dashboard; quiet table/button feedback. |
+| Enhanced | **ALTERNATIVE UI** | [Open Enhanced](https://harrisons-sales-order-monitor-enhan.vercel.app) | [`design/enhanced-ui`, application `b2b4ad5`](https://github.com/liewww89/harrisons-sales-order-monitor/tree/b2b4ad5d58cd01d710f60d8e6cc5363944339c50) | [Overview](docs/screenshots/enhanced-overview-desktop.png), [Orders](docs/screenshots/enhanced-orders-desktop.png), [Mobile](docs/screenshots/enhanced-orders-mobile.png) | Lavender workspace, sidebar/mobile navigation, five statistic cards, interactive donut, order preview, bounded reveals and real-request refresh motion. |
 
 ## Run and verify Enhanced
 
@@ -45,9 +47,9 @@ Base URL: `https://hiring.harrisons.my/api/mock/sales-orders`. The client sends 
 | `src/components/Distribution.tsx` | API-derived SVG/legend; keyboard/touch highlighting; cancellable draw animation. |
 | `src/components/Navigation.tsx`, `OrderTable.tsx` | Semantic responsive navigation, table/card rows and scrollable sticky headers. |
 | `src/useReducedMotion.ts`, `src/styles.css` | Live JavaScript media preference and matching CSS reduced-motion overrides. |
-| `tests/`, `src/*.test.ts` | 19 browser tests and 32 retained unit tests. |
+| `tests/`, `src/*.test.ts` | 35 browser tests and 32 retained unit tests. |
 
-The API summary describes all 1,200 orders except `filtered_orders`, which equals the filtered list total. Five cards and donut use the same global summary: total 1,200; open 420; completed 660 (Invoiced + Delivered); cancelled 120; order value 998,244.30. Labels distinguish global values from the current selection. Unknown statuses retain their source text and warn; residual summary counts appear unclassified.
+The API summary is dataset-wide (1,200 orders observed at the audit), except `filtered_orders`, which equals the filtered list total. Five cards and donut use the same global summary: total 1,200; open 420; completed 660 (Invoiced + Delivered); cancelled 120; order value 998,244.30. Labels distinguish global values from the current selection. Unknown statuses retain their source text and warn; residual summary counts appear unclassified.
 
 **Currency and scale are unspecified by the API.** Values keep their original decimal scale, with two decimal places and no assumed MYR symbol. Dates use Asia/Kuala_Lumpur. “Order preview” means four rows of the current query/page in SalesId ascending order; it does not claim the latest records. Sorting/page-size controls are intentionally omitted.
 
@@ -55,7 +57,7 @@ Metadata/list failures are independent. Search works when metadata fails; each r
 
 ## Verification, disclosure and timing
 
-The final local implementation passed type checking, lint, build, **32 unit tests** and **19 Chrome browser tests (37.3s)**. The public Enhanced app passed the **same 19 browser tests (37.6s)**, anonymous HTTPS, real API authentication/CORS and byte-for-byte JS/CSS comparison with the tested build. Classic passed all **9 original production tests (20.4s)** again and its public JS/CSS hashes remain unchanged. Successful integration uses the real company API. Failure/delay interception and temporary long-text DOM probes are disclosed test-only checks. See [the delivery record](docs/ENHANCED.md) for all three verification gates, isolation/deployment details, motion timings, actual work time, known limits and an optional English recruitment-form note.
+The initial delivery passed type checking, lint, build, **32 unit tests** and **19 Chrome browser tests (37.3s)**. The public Enhanced app passed the **same 19 browser tests (37.6s)**, anonymous HTTPS, real API authentication/CORS and byte-for-byte JS/CSS comparison with the tested build. Classic passed all **9 original production tests (20.4s)** again and its public JS/CSS hashes remain unchanged. Successful integration uses the real company API. Failure/delay interception and temporary long-text DOM probes are disclosed test-only checks. See [the delivery record](docs/ENHANCED.md) for all three verification gates, isolation/deployment details, motion timings, actual work time, known limits and an optional English recruitment-form note.
 
 ChatGPT assisted with prompt preparation; Codex performed substantial implementation, API inspection, test execution, screenshot review, documentation and deployment assistance. These are agent-executed checks, not applicant personal review or independent runtime model attestation. The applicant should review and understand the code. The hiring form has not been submitted.
 
