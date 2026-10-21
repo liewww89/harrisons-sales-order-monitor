@@ -40,10 +40,28 @@ Motion review decision: **Approve**, subject to the executed verification below.
 - `scripts/check-motion-interactions.mjs` passed locally: repeated attempts on a pending disabled Refresh generate only one real order request; 375px coarse-pointer taps leave no stuck card hover or button sheen.
 - Natural playback evidence uses **no pause/currentTime/seek/scrub**. `scripts/record-natural-motion.mjs` records real-browser video, wall-clock screenshots and rAF samples with real API data. Screenshot labels are requested offsets; JSON records actual capture completion times, including browser screenshot overhead.
 
-Production verification and final timing are appended after publication. Earlier timings in `ENHANCED.md` describe the original delivery, not this refinement.
+## Production verification
+
+- Only the existing Enhanced project was deployed, after checking its exact ID/name and public aliases. Application commit **`4b6fcd54d73f7f3442d33caa4eae0e39afa436cc`** on `design/enhanced-ui`.
+- Deployment **`dpl_4Mt2pgLa8FnecMM8UjJYQnVHJ4cA`** reached READY at the existing public URL: **https://harrisons-sales-order-monitor-enhan.vercel.app/#overview**. Node 22.x, basic plan-default build machine, public access without login. No security setting, hosting plan or paid add-on was changed.
+- Complete production browser suite: **22 passed, 43.5s**. Production browser contract/authentication/CORS checks passed, including the live combined query (6 matches). Repeated-pending-refresh and coarse-pointer probes also passed from the production origin.
+- Anonymous HTTPS **200**. `scripts/verify-deployment.mjs` confirmed public assets are byte-for-byte identical to the tested build:
+  - `index-DmdVGXxx.js`: SHA-256 `b2ff0200e2038ae95e9d3c48b114bddf2ef4821f202d172427cf9451be81a245`.
+  - `index-SEFgrFnm.css`: SHA-256 `da892f9d7face2d0ad05497e7e08916826adcd60e467fc0cf66098233345d905`.
+- Both views were checked at **1440, 768, 390 and 375px**. Browser tests include no page overflow, all required fields, keyboard/mobile navigation and sticky headers measured after real container scrolling. Additional production screenshots are in ignored `artifacts/motion-refinement/layouts/`.
+- [Natural production video](motion/enhanced-motion.webm), [timed frames and actual rAF samples](motion/natural-motion-proof.json). Frames: [first capture](motion/natural-0ms.png), [180ms target](motion/natural-180ms.png), [450ms target](motion/natural-450ms.png), [1050ms target](motion/natural-1050ms.png). Codex inspected the actual natural-playback frames. The first screenshot request completed at 321ms and the last at 1113ms relative to the capture trigger; these are reported honestly rather than claiming exact 0ms screenshots. rAF samples include the genuine start (`opacity=0.6`, translateY=16px, donut offset=100), intermediate values and the final state, with the monetary value always `998,244.30`. Video shows initial load, card hover, refresh-button sheen, view/indicator transitions, replay and legend highlight. No animation was manually scrubbed for this evidence. Page errors: **0**.
+- Classic smoke checks passed **2 original real-API browser tests in 5.7s**: initial rows/summary/metadata and search/independent/combined filters/clear. Anonymous HTTP 200 and original JS/CSS hashes remain unchanged. Its original workspace is clean, main remains **`bbcf9bccc5c6068e0efc87590549a524e4c09437`**. No main commit, merge, Classic deployment or Classic hosting change occurred in this session.
+
+Earlier timings in `ENHANCED.md` describe the original delivery, not this refinement. Later commits add this verification record and production media only; no application code changes follow the tested/deployed commit.
 
 ## Time and remaining limits
 
 Previous final reported cumulative agent work is **65m15s**. The checked-in original-delivery checkpoint was 64m08s before the documented final publication/source checks; the previous final clock was 16:16:37 MYT, accounting for the following 67 seconds. This session is measured separately from 16:30:01. Unknown applicant work is not invented.
 
 Remaining limits: Chrome desktop automation and browser touch emulation, without physical-phone, other-browser or screen-reader user testing. Network/API caching and availability remain external dependencies. The natural capture observes sampled browser frames, not a guaranteed display refresh rate or a claim of zero bugs.
+
+## Final measured checkpoint
+
+- **2026-10-21 16:42:38 MYT**: this session **12m 37s** from 16:30:01, including baseline/reproduction, implementation, local and production verification, deployment, video/frames and documentation.
+- Recorded cumulative agent work: **77m 52s**, adding this measured session to the prior final 65m15s. Final documentation/media commit, push and public-link check follow this checkpoint. The 180-minute cumulative budget is respected; no unreported applicant time is inferred.
+
