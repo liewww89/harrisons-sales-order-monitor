@@ -1,5 +1,30 @@
 # Harrisons Sales Order Monitor
 
+**Classic is the PRIMARY assessment submission. Enhanced is an optional ALTERNATIVE UI.** Both use the same supplied read-only company API. Enhanced application code lives on its dedicated branch and is not merged into main.
+
+| Version | Submission role | Public application | Source | Screenshots | Design / motion |
+| --- | --- | --- | --- | --- | --- |
+| Classic | **PRIMARY** | [Open Classic](https://harrisons-sales-order-monitor.vercel.app) | [`main`, pinned application `3bc82a5`](https://github.com/liewww89/harrisons-sales-order-monitor/tree/3bc82a511901f77638e3ee19af399c0875afb84d) | [Desktop](docs/screenshots/classic-desktop.png) | Single dashboard; restrained row/button feedback. |
+| Enhanced | **ALTERNATIVE UI** | [Open Enhanced](https://harrisons-sales-order-monitor-enhan.vercel.app) | [`design/enhanced-ui`, application `0d97fd6`](https://github.com/liewww89/harrisons-sales-order-monitor/tree/0d97fd65cc7ecd9c5ad524973fcd371858a09724) | [Overview](docs/screenshots/enhanced-overview-desktop.png), [Orders](docs/screenshots/enhanced-orders-desktop.png), [Mobile](docs/screenshots/enhanced-orders-mobile.png) | Supplied lavender design, separate Overview/orders views, mobile navigation, interactive donut and bounded motion. |
+
+Enhanced passed type checking, lint, build, 32 unit tests, 19 local browser tests and the same 19 production-browser tests. Classic passed all 9 original production tests again; its public JS/CSS hashes are unchanged. [Enhanced delivery record, time log and optional English form note](docs/ENHANCED.md). Earlier verification/timings below describe Classic. Codex performed these checks; applicant personal review is not implied. No recruitment form was submitted.
+
+<details>
+<summary>API-connected screenshots: Classic and Enhanced</summary>
+
+Classic — PRIMARY:
+
+<img src="docs/screenshots/classic-desktop.png" width="900" alt="Classic primary assessment dashboard" />
+
+Enhanced — ALTERNATIVE UI:
+
+<img src="docs/screenshots/enhanced-overview-desktop.png" width="900" alt="Enhanced Overview desktop" />
+<img src="docs/screenshots/enhanced-orders-desktop.png" width="900" alt="Enhanced Sales orders desktop" />
+<img src="docs/screenshots/enhanced-overview-mobile.png" width="280" alt="Enhanced Overview mobile" />
+<img src="docs/screenshots/enhanced-orders-mobile.png" width="280" alt="Enhanced Sales orders mobile" />
+
+</details>
+
 A responsive sales order dashboard for the Harrisons Sabah Sdn Bhd IT Executive assessment. **All customers and orders are fictional assessment data.** The app monitors orders across branches; it sends only GET requests to the supplied read-only API.
 
 - Public source: [github.com/liewww89/harrisons-sales-order-monitor](https://github.com/liewww89/harrisons-sales-order-monitor) (anonymous page and raw-source access verified).
