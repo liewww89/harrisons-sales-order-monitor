@@ -1,7 +1,7 @@
 import { chromium } from '@playwright/test'
 
 // Real browser GETs, from the actual app origin. No proxy and no replacement data.
-const origin = process.env.APP_URL || 'http://127.0.0.1:5173'
+const origin = process.env.APP_URL || 'http://127.0.0.1:5174'
 const browser = await chromium.launch({ channel: 'chrome', headless: true })
 try {
   const page = await browser.newPage()

@@ -1,134 +1,79 @@
 # Harrisons Sales Order Monitor
 
-A responsive sales order dashboard for the Harrisons Sabah Sdn Bhd IT Executive assessment. **All customers and orders are fictional assessment data.** The app monitors orders across branches; it sends only GET requests to the supplied read-only API.
+**Classic remains the PRIMARY assessment submission.** This branch contains **Enhanced, an ALTERNATIVE UI**, based on the supplied HTML design reference. All customers and orders are fictional assessment data; both versions use only the supplied read-only company API.
 
-- Public source: [github.com/liewww89/harrisons-sales-order-monitor](https://github.com/liewww89/harrisons-sales-order-monitor) (anonymous page and raw-source access verified).
-- Working app: [harrisons-sales-order-monitor.vercel.app](https://harrisons-sales-order-monitor.vercel.app) (anonymous HTTPS verified; final production-browser checks recorded below).
-- Submission answers: [SUBMISSION.md](SUBMISSION.md).
+| Version | Submission role | Public app | Source | Screenshot | Design / motion |
+| --- | --- | --- | --- | --- | --- |
+| Classic | **PRIMARY** | [Open Classic](https://harrisons-sales-order-monitor.vercel.app) | [`main`, pinned application baseline `3bc82a5`](https://github.com/liewww89/harrisons-sales-order-monitor/tree/3bc82a511901f77638e3ee19af399c0875afb84d) | [Desktop](docs/screenshots/classic-desktop.png) | Single working dashboard; quiet table/button feedback. |
+| Enhanced | **ALTERNATIVE UI** | Pending production verification | [`design/enhanced-ui`](https://github.com/liewww89/harrisons-sales-order-monitor/tree/design/enhanced-ui) | [Overview](docs/screenshots/enhanced-overview-desktop.png), [Orders](docs/screenshots/enhanced-orders-desktop.png), [Mobile](docs/screenshots/enhanced-orders-mobile.png) | Lavender workspace, sidebar/mobile navigation, five statistic cards, interactive donut, order preview, bounded reveals and real-request refresh motion. |
 
-## Run locally
+## Run and verify Enhanced
 
-Use Node.js 22.x, version 22.13 or later (tested with 22.23.2), and npm. No database, backend server, environment variables, or account login is needed to run the app.
+Use Node 22.x (tested with 22.23.2), npm and installed Chrome for browser tests. No account, database or environment variables are needed by the application.
 
 ```powershell
 npm.cmd ci
-npm.cmd run dev
+npm.cmd run dev -- --port 5174 --strictPort
 ```
 
-Open `http://127.0.0.1:5173`. On macOS/Linux, use `npm` in place of `npm.cmd`.
+Open [local Overview](http://127.0.0.1:5174/#overview) or [local Sales orders](http://127.0.0.1:5174/#orders). Hash navigation supports direct entry, refresh and browser history. Queries/pages persist across view switches and reset on a full reload.
 
 ```powershell
 npm.cmd run typecheck
 npm.cmd run lint
 npm.cmd test
 npm.cmd run build
-npm.cmd run preview
+npm.cmd run test:e2e
+npm.cmd run check:contract
+node scripts/capture-screenshots.mjs
 ```
 
-The build output is `dist/`. Preview normally listens at `http://127.0.0.1:4173`.
+The contract and screenshot commands need the dev server running. For production checks, set `APP_URL` to the verified deployment origin before running the same commands. Local and production Playwright suites must run sequentially in a checkout so their report directories do not collide. The production output is `dist/`.
 
-## Stack and structure
+## API and source structure
 
-React 19, TypeScript, Vite, plain CSS, native fetch, self-hosted IBM Plex Sans, and individual Phosphor icons. Vitest covers logic/client boundaries; Playwright drives installed Google Chrome for browser integration.
+Base URL: `https://hiring.harrisons.my/api/mock/sales-orders`. The client sends only GET with the public fixture header `x-assessment-key: hssb-assessment-mock-2026`. `/meta` supplies all branch/status options. The API handles `q`, `site`, `status`, `page` and `pageSize=25`; there is no generated production dataset, local order filtering, writable backend or database.
 
-| File | Responsibility |
+| Source | Responsibility |
 | --- | --- |
-| `src/api.ts` | GET-only client, public fixture key, HTTP/network/timeout errors and runtime response validation |
-| `src/types.ts` | Observed metadata, summary, pagination and order fields |
-| `src/query.ts` | URLSearchParams, page reset, status groupings and global summary mapping |
-| `src/useApiResource.ts` | AbortController, request-generation ownership, loading/error/result snapshots and retry |
-| `src/App.tsx` | Controlled filters, 300ms search debounce, pagination and page composition |
-| `src/components/` | Overview, responsive semantic order table and feedback states |
-| `tests/orders.spec.ts` | Real-API browser checks, with disclosed failure/delay interception |
+| `src/api.ts`, `src/types.ts` | Existing GET-only client, observed fields, runtime validation, errors and timeout. |
+| `src/query.ts`, `src/useApiResource.ts` | Existing query encoding, page resets, status mapping, abort/stale-response guards, independent resource loading/retry. |
+| `src/App.tsx`, `src/navigation.ts` | Shared active query, 300ms debounce, hash views, refresh status and page composition. |
+| `src/components/Dashboard.tsx` | Five real summary values; financial amounts show immediately. |
+| `src/components/Distribution.tsx` | API-derived SVG/legend; keyboard/touch highlighting; cancellable draw animation. |
+| `src/components/Navigation.tsx`, `OrderTable.tsx` | Semantic responsive navigation, table/card rows and scrollable sticky headers. |
+| `src/useReducedMotion.ts`, `src/styles.css` | Live JavaScript media preference and matching CSS reduced-motion overrides. |
+| `tests/`, `src/*.test.ts` | 19 browser tests and 32 retained unit tests. |
 
-Metadata and the first page load independently and concurrently. Metadata failure disables only branch/status filters and provides its own retry; order listing and search remain usable. A query change invalidates the displayed snapshot immediately, including during debounce. Cleanup aborts previous requests, an active flag prevents late callbacks, and each snapshot must match the current path and retry generation. Rows, counts and overview values are shown together only for the current completed query. There is no silent fallback dataset or browser persistence of orders.
+The API summary describes all 1,200 orders except `filtered_orders`, which equals the filtered list total. Five cards and donut use the same global summary: total 1,200; open 420; completed 660 (Invoiced + Delivered); cancelled 120; order value 998,244.30. Labels distinguish global values from the current selection. Unknown statuses retain their source text and warn; residual summary counts appear unclassified.
 
-## API integration and verified contract
+**Currency and scale are unspecified by the API.** Values keep their original decimal scale, with two decimal places and no assumed MYR symbol. Dates use Asia/Kuala_Lumpur. “Order preview” means four rows of the current query/page in SalesId ascending order; it does not claim the latest records. Sorting/page-size controls are intentionally omitted.
 
-Base: `https://hiring.harrisons.my/api/mock/sales-orders`.
+Metadata/list failures are independent. Search works when metadata fails; each resource can retry. Old requests are cancelled and cannot replace newer results. No fake rows appear on failure, no artificial wait is used, and received timestamps require actual successful order responses.
 
-- Header: `x-assessment-key: hssb-assessment-mock-2026`.
-- `/meta` supplies status and branch/site options. No hardcoded filter lists.
-- The list uses `page`, `pageSize=25`, `q`, `status` and `site`, encoded with `URLSearchParams`.
-- Search covers SalesId, SalesName, CustAccount, CustomerRef and SalesTaker on the server. Filters combine with search. Status and site values are exact or case insensitive, as documented by metadata.
-- API metadata also supports `sort` and `order`; the UI deliberately uses the observed default, SalesId ascending.
-- Responses contain `summary`, `page`, `pageSize`, `total`, `totalPages` and `data`. The API uses one empty page (`totalPages=1`) for zero matches.
-- Runtime validation rejects invalid required fields, nonnumeric/nonfinite amounts, contradictory totals, duplicate IDs and inconsistent row/pagination counts. Optional customer name/account values have explicit fallbacks.
-- Requests time out after 15 seconds. Network, HTTP, JSON and metadata failures have visible retry actions.
+## Verification, disclosure and timing
 
-| UI field | Actual API field | Display |
-| --- | --- | --- |
-| Sales ID | `SalesId` | Original identifier |
-| Customer | `SalesName`, `CustAccount` | Name with optional account subline |
-| Branch / site | `InventSiteId` | Original site code; no invented branch-name mapping |
-| Order date | `CreatedDateTime1` | `Intl.DateTimeFormat`, Asia/Kuala_Lumpur (MYT) |
-| Status | `SalesStatus` | Original status text |
-| Amount | `HAR_TotalSOAmount` | Original decimal value, two decimal places |
+The final local implementation passed type checking, lint, build, **32 unit tests** and **19 Chrome browser tests (37.3s)**. Successful integration uses the real company API. Failure/delay interception and temporary long-text DOM probes are disclosed test-only checks. See [the delivery record](docs/ENHANCED.md) for all three verification gates, production status, isolation/deployment details, motion timings, actual work time, known limits and an optional English recruitment-form note.
 
-**Currency and monetary scale are not specified in the observed metadata/list responses.** The app does not assume MYR, add a currency symbol, or divide values by 100. The UI states that currency is unspecified. The provided fixture key is intentionally public and visible in browser requests; frontend environment variables would not make it secret. Do not put real credentials into this app.
+ChatGPT assisted with prompt preparation; Codex performed substantial implementation, API inspection, test execution, screenshot review, documentation and deployment assistance. These are agent-executed checks, not applicant personal review or independent runtime model attestation. The applicant should review and understand the code. The hiring form has not been submitted.
 
-### Overview scope and status groupings
+Original Classic documentation is preserved in [SUBMISSION.md](SUBMISSION.md), [WORK_LOG.md](docs/WORK_LOG.md), [VERIFICATION.md](docs/VERIFICATION.md), [UI_POLISH.md](docs/UI_POLISH.md) and [HANDOVER.md](docs/HANDOVER.md). Their earlier counts/timings describe Classic; this branch's additional work is recorded separately in [ENHANCED.md](docs/ENHANCED.md).
 
-Verified against unfiltered, branch, status, combined and empty results: summary amounts and status counts describe **all 1,200 orders**, not the current page or filtered selection. Only `summary.filtered_orders` changes with filters and equals list `total`. The overview is labelled “All orders · unaffected by filters.” No extra dataset aggregation or full-dataset download is required.
+## Screenshots from the actual API-connected apps
 
-| Metric | Mapping | Observed value |
-| --- | --- | --- |
-| Total orders | `summary.total_orders` | 1,200 |
-| Open / pending | `Open order` → `summary.open_orders` | 420 |
-| Completed | `Invoiced` + `Delivered` → their summary counts | 360 + 300 = 660 |
-| Cancelled | `Cancelled` → `summary.cancelled_orders` | 120 |
-| Total order value | `summary.total_order_value` | 998,244.30, currency unspecified |
+Classic — **PRIMARY**:
 
-Unknown statuses keep their original text with an “Unmapped” label and a warning. Any residual global count is shown as unclassified, rather than assigned to a known group. Metadata currently provides eight site codes: A10, B20, C30, D40, E50, KK01, SDK02 and TWU03. Combined `q=Siti`, `site=B20`, `status=Open order` returned 6 matches during verification.
+![Classic desktop](docs/screenshots/classic-desktop.png)
 
-## Browser and automated verification
+Enhanced Overview — **ALTERNATIVE UI**:
 
-Requires installed Google Chrome, as configured by Playwright's `channel: 'chrome'`.
+![Enhanced Overview desktop](docs/screenshots/enhanced-overview-desktop.png)
 
-```powershell
-npm.cmd run check:contract
-npm.cmd run test:e2e
-```
+Enhanced Sales orders:
 
-`check:contract` requires the dev server running. It runs authenticated fetches inside a real Chrome page at the app origin with normal browser security, checking CORS, metadata, pagination, combined filters and empty results. E2E tests start/reuse the dev server automatically.
+![Enhanced Sales orders desktop](docs/screenshots/enhanced-orders-desktop.png)
 
-To repeat against a public deployment:
+Enhanced mobile:
 
-```powershell
-$env:APP_URL = 'https://YOUR-VERIFIED-APP.vercel.app'
-npm.cmd run check:contract
-npm.cmd run test:e2e
-Remove-Item Env:APP_URL
-```
-
-Actual results and their scope are recorded in [docs/VERIFICATION.md](docs/VERIFICATION.md) and [docs/UI_POLISH.md](docs/UI_POLISH.md). The latest UI refinement passed type checking, lint, production build, **32 unit tests**, **9 local browser tests** (18.4 seconds on the final CSS), and **the same 9 tests against the public Vercel deployment** (20.1 seconds). Browser authentication/CORS integration remains verified. Codex inspected before/after desktop, tablet and phone-width screenshots, and checked hover, press, keyboard focus, sticky scrolling, reduced motion and long text. These are agent-executed checks, not a claim that the applicant personally reviewed the application.
-
-The browser tests use the supplied API for successful integration. Two tests intercept responses to simulate list/metadata HTTP 503 errors; one forwards a real API response but delays it to check races. Unit tests use a single observed example record and mocked HTTP boundaries, isolated from production. No replacement production order service exists.
-
-## Deployment
-
-Vercel is configured by `vercel.json`: Vite framework, `npm run build`, output `dist`. No runtime environment variables or paid resources are needed.
-
-1. Import the public GitHub repository into a free Vercel account, or run `npx.cmd --yes vercel@65.0.0 login`, then `npx.cmd --yes vercel@65.0.0 deploy --prod --project harrisons-sales-order-monitor --create-if-missing --yes` in this directory. Use `--scope YOUR-SCOPE` if your account has multiple scopes.
-2. Create a new project named `harrisons-sales-order-monitor`; do not replace unrelated projects. Select Node 22.x if a runtime selection is needed.
-3. Ensure the production domain is publicly accessible without deployment protection. Verify using a fresh browser session and the commands above.
-
-`.vercel/`, dependencies, generated output, local skill installations and local test artifacts are excluded from Git. This delivery used the Vercel CLI with a new project on the existing Hobby plan, a basic build machine, Node 22.x and project-specific deployment protection disabled. No upgrade or paid add-on was purchased. Subsequent source pushes require a CLI redeployment unless the owner separately connects Git integration.
-
-## AI use and limitations
-
-ChatGPT assisted with planning/prompt preparation, as disclosed in the task brief. Codex implemented the application, inspected the actual API, installed/read the three requested skills, wrote and executed tests, reviewed screenshots, prepared documentation and handled publication/deployment. The user identified the selected model as GPT-6.1 Sol with High reasoning; this is the user's model selection, not an independent runtime attestation. The applicant should review the code and submission answers before submitting the recruitment form.
-
-- Depends on the supplied API's availability, fixture key and CORS policy; never falls back to fake data. Its response headers permit caching for 60 seconds; the UI timestamp is the time a response was received, not a source-data modification time.
-- Currency and business meaning of “completed” need confirmation before real use. The assessment mapping groups Delivered and Invoiced as requested.
-- Filters/page are kept in memory and reset on reload; shareable query URLs, custom sorting and optional single-order details were deferred.
-- Browser automation uses Chrome. Edge, Firefox, Safari, real phones and assistive-technology user testing have not been verified.
-- No offline mode, production user authentication or writable order actions are included; the supplied API's read-only operation is intentional.
-
-Time tracking and setup notes: [docs/WORK_LOG.md](docs/WORK_LOG.md).
-
-Applicant checklist, Chinese code/data-flow explanation and five implementation-specific interview questions: [docs/HANDOVER.md](docs/HANDOVER.md).
-
-The subsequent CSS-only UI refinement improves row/button feedback, filter hierarchy and mobile readability. Its separate recovery point, checks, deployment and additional time are recorded in [docs/UI_POLISH.md](docs/UI_POLISH.md); the original assessment log is preserved.
-
-![Desktop sales order dashboard](docs/screenshots/desktop.jpg)
+<img src="docs/screenshots/enhanced-overview-mobile.png" width="320" alt="Enhanced Overview on mobile" />
+<img src="docs/screenshots/enhanced-orders-mobile.png" width="320" alt="Enhanced Sales orders on mobile" />

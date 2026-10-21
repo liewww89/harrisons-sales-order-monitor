@@ -10,15 +10,15 @@ export default defineConfig({
   expect: { timeout: 15_000 },
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
-    baseURL: remote || 'http://127.0.0.1:5173',
+    baseURL: remote || 'http://127.0.0.1:5174',
     ...devices['Desktop Chrome'],
     channel: 'chrome',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
   webServer: remote ? undefined : {
-    command: 'npm run dev -- --port 5173 --strictPort',
-    url: 'http://127.0.0.1:5173',
+    command: 'npm run dev -- --port 5174 --strictPort',
+    url: 'http://127.0.0.1:5174',
     reuseExistingServer: !process.env.CI,
   },
 })
