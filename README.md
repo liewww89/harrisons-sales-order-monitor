@@ -101,7 +101,7 @@ npm.cmd run test:e2e
 Remove-Item Env:APP_URL
 ```
 
-Actual results and their scope are recorded in [docs/VERIFICATION.md](docs/VERIFICATION.md). The initial complete local run passed type checking, lint, production build, **32 unit tests** and **9 browser tests**. Desktop/tablet/mobile screenshots were inspected by Codex. These are agent-executed checks, not a claim that the applicant personally reviewed the application.
+Actual results and their scope are recorded in [docs/VERIFICATION.md](docs/VERIFICATION.md). The final local code run passed type checking, lint, production build, **32 unit tests** and **9 browser tests**. The production-origin contract/CORS check passed and **the same 9 browser tests passed against the public Vercel deployment** in 21.9 seconds. Desktop/tablet/mobile screenshots were inspected by Codex. These are agent-executed checks, not a claim that the applicant personally reviewed the application.
 
 The browser tests use the supplied API for successful integration. Two tests intercept responses to simulate list/metadata HTTP 503 errors; one forwards a real API response but delays it to check races. Unit tests use a single observed example record and mocked HTTP boundaries, isolated from production. No replacement production order service exists.
 
@@ -126,3 +126,7 @@ ChatGPT assisted with planning/prompt preparation, as disclosed in the task brie
 - No offline mode, production user authentication or writable order actions are included; the supplied API's read-only operation is intentional.
 
 Time tracking and setup notes: [docs/WORK_LOG.md](docs/WORK_LOG.md).
+
+Applicant checklist, Chinese code/data-flow explanation and five implementation-specific interview questions: [docs/HANDOVER.md](docs/HANDOVER.md).
+
+![Desktop sales order dashboard](docs/screenshots/desktop.jpg)

@@ -14,7 +14,7 @@
 - [x] Added responsive table/list layouts, labelled controls, focus and keyboard access.
 - [x] Completed type checking, lint, production build, unit and browser tests.
 - [x] Published a new public GitHub repository and verified anonymous access.
-- [ ] Public Vercel deployment and deployed-browser verification (update after completion).
+- [x] Public Vercel deployment, anonymous HTTPS, production-origin CORS and all 9 deployed-browser tests.
 - [x] Prepared README, five English form answers, verification record and this handover.
 - [ ] Applicant personally reviews and submits the assessment form.
 
@@ -28,17 +28,22 @@
 
 ## Five likely interview questions
 
-1. **Why React/Vite and no separate backend?**  
+1. **Why React/Vite and no separate backend?**
+
    The assessment supplies a read-only REST API with browser CORS and a public fixture key. A static React/TypeScript app meets the requirement with a small deployment surface; a database or proxy would add unnecessary complexity and conflict with the sole-source constraint.
 
-2. **How do you stop a slow search response from replacing a newer one?**  
+2. **How do you stop a slow search response from replacing a newer one?**
+
    Effect cleanup aborts the previous fetch and marks its callback inactive. The resource also tags each result with its request path and retry generation, and renders it only when that key matches the current request. A delayed-response browser test checks the final rows and count after the old request settles.
 
-3. **Why do dashboard values stay unchanged when a branch is selected?**  
+3. **Why do dashboard values stay unchanged when a branch is selected?**
+
    Real filtered responses retain global summary counts and value; only filtered_orders changes. The UI labels the overview as all orders and uses list total for the filtered count. Completed is Invoiced plus Delivered, with unknown statuses flagged explicitly.
 
-4. **Is the assessment key secure in the frontend?**  
+4. **Is the assessment key secure in the frontend?**
+
    No frontend variable can hide a key sent by the browser. This key is an intentionally public fictional fixture credential. A real confidential credential would require a different authorised backend design, but this assessment requires the supplied read-only API directly.
 
-5. **What did you test, and what would you improve next?**  
+5. **What did you test, and what would you improve next?**
+
    Type checking, lint, a production build, 32 unit tests and 9 browser scenarios cover parsing, query encoding, filters, pagination, errors/retry, races and responsive layout. Success cases use the real API; failures/delays are explicitly simulated. Next steps would be real-device/screen-reader checks, confirmed currency/business rules and optional shareable filters/order details.

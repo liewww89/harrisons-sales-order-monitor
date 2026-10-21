@@ -51,12 +51,21 @@ Simulations are limited to tests. The race interception forwards a real API resp
 
 Reviewed App, Dashboard, OrderTable, Feedback and styles against the current [Vercel Web Interface Guidelines](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md). Labels, button semantics, skip link, async live regions, focus outlines, Intl formatting, long-name wrapping, status text and reduced motion are implemented. Review added an explicit accessible name to the mobile refresh control and disabled translation of the brand. Sentence case follows the task/Taste app-screen style; optional URL persistence was consciously deferred.
 
+- `src/App.tsx:68` — fixed: explicit accessible name for refresh at mobile icon size.
+- `src/App.tsx:58` — fixed: brand translation disabled.
+- `src/styles.css:107` — allowed: monospace is limited to literal sales-order identifiers, as permitted by the Taste app-screen reference.
+
 ## Public delivery
 
 - GitHub: https://github.com/liewww89/harrisons-sales-order-monitor — created and pushed; repository page and raw App.tsx both returned anonymous HTTP 200. GitHub API confirms private=false.
 - Vercel: https://harrisons-sales-order-monitor.vercel.app — new project deployed on Hobby/basic resources. Anonymous HTTPS returned HTTP 200 at the production host, without login or a protection bypass.
 - Removed inherited SSO protection only from this newly created assessment project; existing account/team defaults and unrelated projects were preserved. Pinned the project and package to Node 22.x for reproducibility.
-- Final Node-22 deployment, production-origin CORS and browser interactions: in progress.
+- Final Node-22 production deployment: READY, production target, basic 2-core / 8GB build machine, no deployment protection. Node-22 build/type checking completed successfully.
+- `APP_URL=https://harrisons-sales-order-monitor.vercel.app npm run check:contract`: passed from the production origin in real Chrome with normal browser security; authentication, CORS, metadata, global summary, combined filters and empty results verified.
+- `APP_URL=https://harrisons-sales-order-monitor.vercel.app npm run test:e2e`: all 9 browser tests passed in 21.9 seconds. The same real-API comparisons, main interactions, simulated failures/retries, response-race and layout checks executed on the public app.
+- Final anonymous production request after browser tests: HTTP 200; expected page title; no login redirect.
+- Source and deployed runtime match. The final documentation-only commit records these results and does not change the deployed application bundle.
+- Downloaded the public production JavaScript and compared SHA-256 with the tested local production output: identical (`index-9UPEWfEU.js`, SHA-256 `39a143006b6d7005649ea2cc4ce516bf889e66e5e9d8cc2e6a81f8e24ad668f9`).
 
 ## Not verified
 

@@ -28,7 +28,7 @@ The local checks passed: TypeScript type checking, ESLint, production build, 32 
 
 Successful integration tests use the supplied API. HTTP 503 failures are deliberately simulated by request interception, and the race test delays a real forwarded response. Unit mocks and one observed sample record are test-only; they are not a production fallback. The delayed-response test was strengthened to wait for the older response to settle before checking final state. A JSON-error handler was refined to preserve timeout/cancellation errors. No system software was upgraded.
 
-Public deployment verification results will be updated after deployment. Detailed executed checks, actual outcomes and remaining verification limits are recorded in docs/VERIFICATION.md. Automated browser checks and agent screenshot inspection do not replace my final review, real-device testing or assistive-technology testing. I have not asked Codex to submit the recruitment form.
+The public GitHub page and raw source were verified without login. The Vercel app returned anonymous HTTPS 200 without deployment protection. The contract/authentication/CORS check passed from the production origin, and the same 9 browser tests passed against the deployed app in 21.9 seconds. Detailed executed checks, actual outcomes and remaining verification limits are recorded in docs/VERIFICATION.md. Automated browser checks and agent screenshot inspection do not replace my final review, real-device testing or assistive-technology testing. I have not asked Codex to submit the recruitment form.
 
 ## Question 3 — Source code: public Git repository URL
 
@@ -40,7 +40,7 @@ Verified public: the repository page and raw application source are accessible w
 
 https://harrisons-sales-order-monitor.vercel.app
 
-Verified anonymous HTTPS response: HTTP 200, without redirecting to login. Final production-browser results are recorded in docs/VERIFICATION.md.
+Verified anonymous HTTPS response: HTTP 200 without login; production-origin API/CORS check and all 9 deployed-browser tests passed. Details are in docs/VERIFICATION.md.
 
 ## Question 5 — Known limitations
 
@@ -50,4 +50,4 @@ The API does not specify currency or amount scale. Original decimal amounts are 
 
 Filters and pagination are in memory and reset on reload. Optional single-order detail, shareable filter URLs and custom sorting were deferred to prioritise required functionality, testing and delivery. There is no decorative chart, export, authentication system or order editor. Read-only order access is an intentional API constraint, not an unfinished editing feature.
 
-Automated browser coverage is Chrome at desktop and mobile viewport sizes. Firefox, Safari, Edge, actual mobile devices and screen-reader user testing were not performed. The applicant's final code and submission review remains necessary. Publication/deployment status is recorded in Questions 3 and 4 and will only be marked complete after actual public-access checks.
+Automated browser coverage is Chrome at desktop and mobile viewport sizes. Firefox, Safari, Edge, actual mobile devices and screen-reader user testing were not performed. The applicant's final code and submission review remains necessary. Public source and application access have been verified, as recorded in Questions 3 and 4. The app was deployed through the Vercel CLI; later source changes need a CLI redeployment unless Git integration is separately connected.
