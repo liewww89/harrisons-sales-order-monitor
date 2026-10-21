@@ -5,7 +5,7 @@
 | Version | Submission role | Public app | Source | Screenshot | Design / motion |
 | --- | --- | --- | --- | --- | --- |
 | Classic | **PRIMARY** | [Open Classic](https://harrisons-sales-order-monitor.vercel.app) | [`main`, pinned application baseline `3bc82a5`](https://github.com/liewww89/harrisons-sales-order-monitor/tree/3bc82a511901f77638e3ee19af399c0875afb84d) | [Desktop](docs/screenshots/classic-desktop.png) | Single working dashboard; quiet table/button feedback. |
-| Enhanced | **ALTERNATIVE UI** | Pending production verification | [`design/enhanced-ui`](https://github.com/liewww89/harrisons-sales-order-monitor/tree/design/enhanced-ui) | [Overview](docs/screenshots/enhanced-overview-desktop.png), [Orders](docs/screenshots/enhanced-orders-desktop.png), [Mobile](docs/screenshots/enhanced-orders-mobile.png) | Lavender workspace, sidebar/mobile navigation, five statistic cards, interactive donut, order preview, bounded reveals and real-request refresh motion. |
+| Enhanced | **ALTERNATIVE UI** | [Open Enhanced](https://harrisons-sales-order-monitor-enhan.vercel.app) | [`design/enhanced-ui`, application `0d97fd6`](https://github.com/liewww89/harrisons-sales-order-monitor/tree/0d97fd65cc7ecd9c5ad524973fcd371858a09724) | [Overview](docs/screenshots/enhanced-overview-desktop.png), [Orders](docs/screenshots/enhanced-orders-desktop.png), [Mobile](docs/screenshots/enhanced-orders-mobile.png) | Lavender workspace, sidebar/mobile navigation, five statistic cards, interactive donut, order preview, bounded reveals and real-request refresh motion. |
 
 ## Run and verify Enhanced
 
@@ -53,7 +53,7 @@ Metadata/list failures are independent. Search works when metadata fails; each r
 
 ## Verification, disclosure and timing
 
-The final local implementation passed type checking, lint, build, **32 unit tests** and **19 Chrome browser tests (37.3s)**. Successful integration uses the real company API. Failure/delay interception and temporary long-text DOM probes are disclosed test-only checks. See [the delivery record](docs/ENHANCED.md) for all three verification gates, production status, isolation/deployment details, motion timings, actual work time, known limits and an optional English recruitment-form note.
+The final local implementation passed type checking, lint, build, **32 unit tests** and **19 Chrome browser tests (37.3s)**. The public Enhanced app passed the **same 19 browser tests (37.6s)**, anonymous HTTPS, real API authentication/CORS and byte-for-byte JS/CSS comparison with the tested build. Classic passed all **9 original production tests (20.4s)** again and its public JS/CSS hashes remain unchanged. Successful integration uses the real company API. Failure/delay interception and temporary long-text DOM probes are disclosed test-only checks. See [the delivery record](docs/ENHANCED.md) for all three verification gates, isolation/deployment details, motion timings, actual work time, known limits and an optional English recruitment-form note.
 
 ChatGPT assisted with prompt preparation; Codex performed substantial implementation, API inspection, test execution, screenshot review, documentation and deployment assistance. These are agent-executed checks, not applicant personal review or independent runtime model attestation. The applicant should review and understand the code. The hiring form has not been submitted.
 

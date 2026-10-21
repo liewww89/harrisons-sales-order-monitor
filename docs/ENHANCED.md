@@ -57,7 +57,18 @@ Amounts use the supplied decimal scale and no assumed currency. The preview show
 
 ## Gate C — production
 
-Pending separate deployment and production verification. Enhanced is not yet reported complete at this checkpoint.
+- Enhanced public URL returned by Vercel: **https://harrisons-sales-order-monitor-enhan.vercel.app**. The shortened `enhan` hostname is Vercel's actual assigned alias, not an inferred URL. It is public without login; anonymous HTTPS returned **200**.
+- Deployment **`dpl_ELSSpQyWGGkMbwh2HMyJmaDC8uNG`** reached **READY** on the new Enhanced project, production target, Node **22.x**, basic plan-default build machine, no deployment protection. No chargeable add-on/upgrade was used.
+- Tested/deployed application source: **`0d97fd65cc7ecd9c5ad524973fcd371858a09724`**, branch `design/enhanced-ui`. Later commits update QA tools, screenshots and documentation only. CLI deployment is used; neither project is Git-connected, so future source pushes require an explicit deployment.
+- The complete public Enhanced browser suite passed: **19 tests, 37.6s**. This includes actual normal/reduced/interrupted motion, navigation/history/reload, mobile/touch, real refresh with disclosed failure/retry, original query/pagination/error/race checks and measured sticky headers.
+- The production-origin browser contract check passed authenticated GET/CORS, real metadata/summary, combined query (**6 matches**) and empty results under normal browser security.
+- Public JavaScript and CSS are **byte-for-byte identical** to the final tested local build, verified by SHA-256 with `scripts/verify-deployment.mjs`:
+  - `index-DbhAqp4d.js`: `faee761604278f7ba461a95abc8fd5bf8751c6abedcd0e11f307e630a288e717`.
+  - `index-C__LC2IH.css`: `ef0d58d4e677f7900cf619bb485a76256538532a418d14b223618d4f9885a5f8`.
+- Production screenshots were recaptured for **both views at 1440/1024/768/390/375px**, with zero horizontal page overflow and **zero page errors**. Desktop/mobile delivery screenshots under `docs/screenshots/` were captured from public, API-connected applications. Additional tablet/narrow captures are in ignored `artifacts/layouts/`. Codex inspected desktop, tablet and phone screenshots.
+- `scripts/capture-motion.mjs` scrubbed the actual production SVG animation to **0ms, 100ms and 550ms**; Codex viewed all three screenshots in `artifacts/motion/` and confirmed a visibly progressive draw with final real values unchanged. This QA playback probe does not change production behavior. The browser suite independently verifies naturally running animations and cancellation.
+- Classic remains **https://harrisons-sales-order-monitor.vercel.app**. Its original complete public suite passed again: **9 tests, 20.4s**. Anonymous HTTPS returned **200**; original public CSS/JS SHA-256 values remain unchanged (`1ed55e…c69f`, `39a143…68f9`). Its original workspace is still clean at recovery SHA `3bc82a5` on `ui/polish-readability-feedback`.
+- Main documentation is updated only after inspecting Classic's absent Git deployment integration. The documentation publication does not merge Enhanced application code into main or redeploy Classic.
 
 ## Hosting safeguards
 
@@ -76,3 +87,19 @@ Remaining limits: Chrome and browser touch emulation only; no physical phone, sc
 ## Optional English form note
 
 Classic is my primary assessment submission. I also created an optional Enhanced UI with a separate Overview and Sales orders view, responsive navigation and restrained motion. Both versions use the same supplied read-only Harrisons API; Enhanced changes the presentation without introducing another order backend or generated production records. AI assistance and executed verification are documented in the repository.
+
+## Delivery files
+
+- Classic desktop: `docs/screenshots/classic-desktop.png`.
+- Enhanced desktop: `docs/screenshots/enhanced-overview-desktop.png`, `docs/screenshots/enhanced-orders-desktop.png`.
+- Enhanced mobile: `docs/screenshots/enhanced-overview-mobile.png`, `docs/screenshots/enhanced-orders-mobile.png`.
+- Both published READMEs include a PRIMARY/ALTERNATIVE comparison and embed screenshots whose paths exist on their own branch.
+- Production proof/extra widths/motion frames remain local in ignored `artifacts/`; their outcomes and hashes are recorded here. No credentials, personal files, generated prototype dataset or build/dependency directories are committed.
+
+## Final measured checkpoint
+
+- Checkpoint: **2026-10-21 16:15:30 MYT**.
+- Additional measured session work: **23m 35s** from 15:51:55 MYT, including inspection, implementation, tests, deployment, screenshots and documentation.
+- Recorded cumulative budget: **64m 8s**, using the user's later reported 40m33s prior baseline. The earlier checked-in checkpoint was 39m49s; no unknown applicant work is invented.
+- Within the 90-minute additional target and 180-minute cumulative limit. Final documentation commits/pushes and anonymous source-link checks follow this checkpoint; no application change or additional deployment follows.
+

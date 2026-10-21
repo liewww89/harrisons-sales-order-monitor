@@ -9,6 +9,8 @@ try {
   const page = await browser.newPage({
     viewport: { width: 1440, height: 1000 },
   });
+  const pageErrors = [];
+  page.on("pageerror", (error) => pageErrors.push(error.message));
   await page.goto("https://harrisons-sales-order-monitor.vercel.app");
   await page.locator("tbody tr").first().waitFor();
   await page.screenshot({
@@ -46,6 +48,9 @@ try {
       console.log(`${view} ${width}px: captured, no page overflow`);
     }
   }
+  if (pageErrors.length)
+    throw new Error(`Browser page errors: ${pageErrors.join("; ")}`);
+  console.log("Browser page errors: 0");
 } finally {
   await browser.close();
 }
